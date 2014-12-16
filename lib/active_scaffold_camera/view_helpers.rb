@@ -15,7 +15,8 @@ module ActiveScaffoldCamera
     end
 
     def active_scaffold_column_snapshot(record, column)
-      
+      value = record.send(column.name)
+      tag :img, :src => value if value
     end
   end
 end
