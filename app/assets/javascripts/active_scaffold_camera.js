@@ -2,12 +2,30 @@
 //= require_self
 
 ActiveScaffold.snapshot = function(selector_or_elements, parent) {
-  function startVideo(element, videoConstraint) {
-    var sayCheese = new SayCheese(element, {snapshots: true, video: videoConstraint});
+  function videoConstraint(video) {
+    return typeof(video) == 'string' ? {optional: [{sourceId: video}]} : video;
+  }
+
+  function audioConstraint(audio) {
+    return typeof(audio) == 'string' ? {optional: [{sourceId: audio}]} : audio;
+  }
+
+  function startVideo(element, video, audio, video_select) {
+    var sayCheese = new SayCheese(element, {snapshots: true, video: videoConstraint(video), audio: audioConstraint(audio)});
+
+    if (video_select) {
+      video_select.on('change', function() {
+        sayCheese.stop();
+        sayCheese.video.remove();
+        $('.snapshots', sayCheese.element).remove();
+        sayCheese.options.video = videoConstraint($(this).val());
+        sayCheese.start();
+      });
+    }
     
     sayCheese.on('start', function() {
       $(this.video).data('saycheese', this);
-      $(this.video).after($('<div>').addClass('snapshot'));
+      $(this.video).after($('<div>').addClass('snapshots'));
       this.video.play();
     });
     sayCheese.on('error', function(error) {
@@ -26,7 +44,7 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
     });
     sayCheese.on('snapshot', function(snapshot) {
       var img = document.createElement('img'), container = $(this.video).parent();
-      $(img).on('load', function() { $('.snapshot', container).html(img); });
+      $(img).on('load', function() { $('.snapshots', container).html(img); });
       img.src = snapshot.toDataURL('image/png');
     });
 
@@ -38,19 +56,29 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
   else elements = jQuery(selector_or_elements);
 
   elements.each(function() {
-    var $element = $(this);
+    var $element = $(this), selector = '#' + $element.attr('id');
     MediaStreamTrack.getSources(function(sourceInfos) {
       var sources = [];
       for(i in sourceInfos) {
         var source = sourceInfos[i];
         if (source.kind == 'video') {
-          console.log(source.id, source.label || 'camera ' + (sources.length + 1));
-          $element.before($('<p>').html(source.label || 'camera ' + (sources.length + 1)));
           sources.push(source);
         }
       }
-      var videoConstraint = sources.length == 0 ? true : {optional: [{sourceId: sources[sources.length-1].id}]};
-      startVideo('#' + $element.attr('id'), videoConstraint);
+      var video, source, select, index = $element.data('source');
+      if (index != null) {
+        if (index < 0) source = sources[sources.length + index];
+        else source = sources[index];
+        if (source) video = source.id;
+      } else if (sources.length > 1) {
+        var select = $('<select>');
+        for (i in sources) {
+          source = sources[i];
+          select.append($('<option>').val(source.id).html(source.label || 'camera ' + (i + 1)));
+        }
+        $element.prepend(select);
+      }
+      startVideo(selector, video || true, false, select);
     });
   });
 };

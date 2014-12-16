@@ -34,6 +34,7 @@ var SayCheese = (function() {
     this.events = {},
     this.stream = null,
     this.options = {
+      video: true,
       snapshots: true,
       audio: false
     };
@@ -168,7 +169,7 @@ var SayCheese = (function() {
       this.trigger('error', error);
     }.bind(this);
 
-    return navigator.getUserMedia({ video: true, audio: this.options.audio }, success, error);
+    return navigator.getUserMedia({ video: this.options.video, audio: this.options.audio }, success, error);
   };
 
   SayCheese.prototype.stop = function stop() {
