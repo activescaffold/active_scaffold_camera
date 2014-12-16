@@ -1,0 +1,5 @@
+es:
+  active_scaffold:
+    video_not_supported: "<strong>:(</strong> ¡tu navegador no soporta video!"
+    audio_not_supported: "<strong>:(</strong> ¡tu navegador no soporta audio!"
+    media_forbidden: "<strong>:(</strong> tienes que pulsar 'permitir' para usar la cámara"

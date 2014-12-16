@@ -1,0 +1,5 @@
+en:
+  active_scaffold:
+    video_not_supported: "<strong>:(</strong> your browser doesn't support video yet!"
+    audio_not_supported: "<strong>:(</strong> your browser doesn't support audio yet!"
+    media_forbidden: "<strong>:(</strong> you have to click 'allow' to use media"

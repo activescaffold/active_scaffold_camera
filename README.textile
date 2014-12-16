@@ -1,0 +1,67 @@
+h1. Signaturepad for ActiveScaffold
+
+Currently, this plugin is compatible with ActiveScaffold >= 3.4 gem.
+
+h2. Overview
+
+This plugin adds a signaturepad form_ui to display a signature area. It uses "jquery.signaturepad":https://github.com/thomasjbradley/signature-pad
+
+h2. Installation
+
+You'll need at least ActiveScaffold 3.4 to use this
+
+
+<pre>
+gem install active_scaffold_signaturepad
+</pre>
+
+h2. Usage
+
+h4. Step 1
+
+Set column to use :signaturepad form_ui
+
+h4. Step 2
+
+Setup signaturepad using options method on column
+
+<pre>
+# app/controllers/visitors_controller.rb
+
+class VisitorsController < ApplicationController
+  active_scaffold :visitor do |config|
+    config.columns[:signature].form_ui = :signaturepad
+    config.columns[:signature].options = {
+      :width => 150, # canvas width, default 250
+      :height => 55, # canvas height, default 100
+      :line_colour => 'transparent' # colour for signature line on canvas, transparent for none
+    }
+  end
+end
+</pre>
+
+Available options: line_colour, line_width, line_margin, line_top, bg_colour, pen_colour, pen_width, pen_cap, error_message_draw
+
+See "jquery.signaturepad doc":http://thomasjbradley.ca/lab/signature-pad/#options-ref for reference about options
+
+If error_message_draw is a symbol it will be translated (using as_ method, so it must be on active_scaffold namespace)
+
+h4. Save image
+
+Signaturepad sends a JSON representation to signature. It can be converted to image on server, adding some code to model:
+
+https://gist.github.com/branch14/4258871
+
+h2. Support
+
+If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_signaturepad/issues
+
+h2. Contributing
+
+Fork, hack, push, and request a pull:
+
+http://github.com/activescaffold/active_scaffold_signaturepad/
+
+h2. License
+
+Released under the MIT license (included).
