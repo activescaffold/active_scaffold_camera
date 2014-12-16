@@ -4,7 +4,7 @@ require 'active_scaffold_camera/version'
 
 Gem::Specification.new do |s|
   s.name = %q{active_scaffold_camera}
-  s.version = ActiveScaffoldSignaturepad::Version::STRING
+  s.version = ActiveScaffoldCamera::Version::STRING
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sergio Cambra", "Volker Hochstein"]
