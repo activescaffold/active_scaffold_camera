@@ -50,7 +50,7 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
         }
       }
       var videoConstraint = sources.length == 0 ? true : {optional: [{sourceId: sources[sources.length-1].id}]};
-      startVideo($element, videoConstraint);
+      startVideo($element.attr('id'), videoConstraint);
     });
   });
 };
