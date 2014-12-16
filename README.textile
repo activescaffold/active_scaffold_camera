@@ -43,9 +43,7 @@ If video_not_supported, audio_not_supported or media_forbidden are symbols they 
 
 h4. Save image
 
-Snapshot form_ui sends a data url, encoded on base64, of the image. It can be saved to a file on server, adding some code to model:
-
-https://gist.github.com/branch14/4258871
+Snapshot form_ui sends a data url, encoded on base64, of the image, so it should be saved on column of blob type.
 
 h2. Support
 

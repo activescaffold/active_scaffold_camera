@@ -18,6 +18,7 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
         sayCheese.stop();
         sayCheese.video.remove();
         $('.snapshots', sayCheese.element).remove();
+        $('input', sayCheese.element).val('');
         sayCheese.options.video = videoConstraint($(this).val());
         sayCheese.start();
       });
@@ -43,9 +44,10 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
       $(this.element).prepend($alert);
     });
     sayCheese.on('snapshot', function(snapshot) {
-      var img = document.createElement('img'), container = $(this.video).parent();
+      var img = document.createElement('img'), container = $(this.video).parent(), input = $('input', this.element);
       $(img).on('load', function() { $('.snapshots', container).html(img); });
       img.src = snapshot.toDataURL('image/png');
+      input.val(img.src);
     });
 
     sayCheese.start();

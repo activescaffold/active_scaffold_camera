@@ -9,7 +9,9 @@ module ActiveScaffoldCamera
     end
 
     def active_scaffold_input_snapshot(column, html_options)
-      content_tag :div, '', :class => "snapshot-input #{html_options[:class]}", :id => html_options[:id], :data => snapshot_attributes(column)
+      content_tag :div, :class => "snapshot-input #{html_options[:class]}", :id => html_options[:id], :data => snapshot_attributes(column) do
+        hidden_field :record, column.name, :name => html_options[:name]
+      end
     end
 
     def active_scaffold_column_snapshot(record, column)
