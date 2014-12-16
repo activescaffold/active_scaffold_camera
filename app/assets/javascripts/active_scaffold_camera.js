@@ -60,13 +60,13 @@ jQuery(document).ready(function($) {
     $(this).data('saycheese').takeSnapshot();
   });
   $(document).on('as:action_success', 'a.as_action', function(e, action_link) {
-    var pads = $('.snapshot', action_link.adapter);
-    if (pads.length) ActiveScaffold.snapshot(pads);
+    var elements = $('.snapshot-input', action_link.adapter);
+    if (elements.length) ActiveScaffold.snapshot(elements);
   });
   $(document).on('as:element_updated', function(e) {
-    var pads = $('.snapshot', e.target);
-    if (pads.length) ActiveScaffold.snapshot(pads);
+    var elements = $('.snapshot-input', e.target);
+    if (elements.length) ActiveScaffold.snapshot(elements);
   });
-  var pads = $('.snapshot');
-  if (pads.length) ActiveScaffold.snapshot(pads);
+  var elements = $('.snapshot-input');
+  if (elements.length) ActiveScaffold.snapshot(elements);
 });
