@@ -12,17 +12,17 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
     });
     sayCheese.on('error', function(error) {
       var $alert = $('<div>');
-      $alert.addClass('alert alert-error').css('margin-top', '20px');
+      $alert.addClass('message error-message').css('margin-top', '20px');
 
       if (error === 'NOT_SUPPORTED') {
-        $alert.html(element.data('video-not-supported'));
+        $alert.html($(this.element).data('video-not-supported'));
       } else if (error === 'AUDIO_NOT_SUPPORTED') {
-        $alert.html(element.data('audio-not-supported'));
+        $alert.html($(this.element).data('audio-not-supported'));
       } else {
-        $alert.html(element.data('media-forbidden'));
+        $alert.html($(this.element).data('media-forbidden'));
       }
 
-      $(this.video).before($alert);
+      $(this.element).prepend($alert);
     });
     sayCheese.on('snapshot', function(snapshot) {
       var img = document.createElement('img'), container = $(this.video).parent();
@@ -50,7 +50,7 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
         }
       }
       var videoConstraint = sources.length == 0 ? true : {optional: [{sourceId: sources[sources.length-1].id}]};
-      startVideo($element.attr('id'), videoConstraint);
+      startVideo('#' + $element.attr('id'), videoConstraint);
     });
   });
 };
