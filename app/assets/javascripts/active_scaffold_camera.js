@@ -3,7 +3,7 @@
 
 ActiveScaffold.snapshot = function(selector_or_elements, parent) {
   function startVideo(element, videoConstraint) {
-    var sayCheese = new SayCheese($element, {snapshots: true, video: videoConstraint});
+    var sayCheese = new SayCheese(element, {snapshots: true, video: videoConstraint});
     
     sayCheese.on('start', function() {
       $(this.video).data('saycheese', this);
