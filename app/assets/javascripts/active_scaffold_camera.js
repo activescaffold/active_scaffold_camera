@@ -61,7 +61,7 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
     var $element = $(this), selector = '#' + $element.attr('id');
     MediaStreamTrack.getSources(function(sourceInfos) {
       var sources = [];
-      for(i in sourceInfos) {
+      for(var i in sourceInfos) {
         var source = sourceInfos[i];
         if (source.kind == 'video') {
           sources.push(source);
