@@ -5,5 +5,12 @@ module ActiveScaffoldCamera
         include ActiveScaffoldCamera::ViewHelpers
       end
     end
+
+    initializer "active_scaffold_camera.assets" do
+      ActiveSupport.on_load :active_scaffold do
+        self.stylesheets << 'active_scaffold_camera'
+        self.javascripts << 'active_scaffold_camera'
+      end
+    end
   end
 end
