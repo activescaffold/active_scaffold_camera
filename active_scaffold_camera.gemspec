@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/activescaffold/active_scaffold_camera}
   s.extra_rdoc_files = [
     "LICENSE",
-    "README.textile"
+    "README.md"
   ]
   s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE README.textile]
   s.test_files = Dir["test/**/*"]
