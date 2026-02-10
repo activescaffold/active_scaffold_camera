@@ -1,30 +1,30 @@
-h1. Camera for ActiveScaffold
+# Camera for ActiveScaffold
 
 Currently, this plugin is compatible with ActiveScaffold >= 3.4 gem.
 
-h2. Overview
+## Overview
 
-This plugin adds a camera viewer to take a snapshot from camera on ActiveScaffold forms. It uses "SayCheese.js":https://github.com/leemachin/say-cheese
+This plugin adds a camera viewer to take a snapshot from camera on ActiveScaffold forms. It uses [SayCheese.js](https://github.com/leemachin/say-cheese)
 
-h2. Installation
+## Installation
 
 You'll need at least ActiveScaffold 3.4 to use this
 
-<pre>
+```
 gem install active_scaffold_camera
-</pre>
+```
 
-h2. Usage
+## Usage
 
-h4. Step 1
+#### Step 1
 
 Set column to use :snapshot form_ui
 
-h4. Step 2
+#### Step 2
 
 Setup snapshot using options method on column
 
-<pre>
+```ruby
 # app/controllers/visitors_controller.rb
 
 class VisitorsController < ApplicationController
@@ -33,7 +33,7 @@ class VisitorsController < ApplicationController
     config.columns[:signature].options = {:source => -1}
   end
 end
-</pre>
+```
 
 Available options: video_not_supported, audio_not_supported, media_forbidden, source
 
@@ -41,20 +41,20 @@ Source can be set to use a specific source instead of displaying source selector
 
 If video_not_supported, audio_not_supported or media_forbidden are symbols they will be translated (using as_ method, so it must be on active_scaffold namespace). They have a default translation.
 
-h4. Save image
+#### Save image
 
 Snapshot form_ui sends a data url, encoded on base64, of the image, so it should be saved on column of blob type.
 
-h2. Support
+## Support
 
-If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_camera/issues
+If you have issues installing the plugin, search / post to the [Active Scaffold](http://groups.google.com/group/activescaffold) forum or [Create an issue](http://github.com/activescaffold/active_scaffold_camera/issues)
 
-h2. Contributing
+## Contributing
 
 Fork, hack, push, and request a pull:
 
 http://github.com/activescaffold/active_scaffold_camera/
 
-h2. License
+## License
 
 Released under the MIT license (included).
