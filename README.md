@@ -29,8 +29,8 @@ Setup snapshot using options method on column
 
 class VisitorsController < ApplicationController
   active_scaffold :visitor do |config|
-    config.columns[:signature].form_ui = :signaturepad
-    config.columns[:signature].options = {:source => -1}
+    config.columns[:id_card].form_ui = :snapshot
+    config.columns[:id_card].options = {:source => -1}
   end
 end
 ```
