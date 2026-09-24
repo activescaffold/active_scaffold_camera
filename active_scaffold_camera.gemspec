@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.md"
   ]
-  s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE README.textile]
+  s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE README.md]
   s.test_files = Dir["test/**/*"]
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
