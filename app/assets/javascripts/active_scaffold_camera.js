@@ -2,12 +2,40 @@
 //= require_self
 
 ActiveScaffold.snapshot = function(selector_or_elements, parent) {
+  function modernMediaApi() {
+    return navigator.mediaDevices && navigator.mediaDevices.getUserMedia;
+  }
+
   function videoConstraint(video) {
-    return typeof(video) == 'string' ? {optional: [{sourceId: video}]} : video;
+    if (typeof(video) != 'string') return video;
+    return modernMediaApi() ? {deviceId: {exact: video}} : {optional: [{sourceId: video}]};
   }
 
   function audioConstraint(audio) {
-    return typeof(audio) == 'string' ? {optional: [{sourceId: audio}]} : audio;
+    if (typeof(audio) != 'string') return audio;
+    return modernMediaApi() ? {deviceId: {exact: audio}} : {optional: [{sourceId: audio}]};
+  }
+
+  function enumerateVideoSources(callback) {
+    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+      navigator.mediaDevices.enumerateDevices().then(function(devices) {
+        callback(devices.filter(function(device) {
+          return device.kind == 'videoinput';
+        }).map(function(device) {
+          return {id: device.deviceId, label: device.label};
+        }));
+      }).catch(function() {
+        callback([]);
+      });
+    } else if (window.MediaStreamTrack && MediaStreamTrack.getSources) {
+      MediaStreamTrack.getSources(function(sourceInfos) {
+        callback(sourceInfos.filter(function(source) {
+          return source.kind == 'video';
+        }));
+      });
+    } else {
+      callback([]);
+    }
   }
 
   function startVideo(element, video, audio, video_select) {
@@ -59,22 +87,15 @@ ActiveScaffold.snapshot = function(selector_or_elements, parent) {
 
   elements.each(function() {
     var $element = $(this), selector = '#' + $element.attr('id');
-    MediaStreamTrack.getSources(function(sourceInfos) {
-      var sources = [];
-      for(var i in sourceInfos) {
-        var source = sourceInfos[i];
-        if (source.kind == 'video') {
-          sources.push(source);
-        }
-      }
+    enumerateVideoSources(function(sources) {
       var video, source, select, index = $element.data('source');
       if (index != null) {
         if (index < 0) source = sources[sources.length + index];
         else source = sources[index];
         if (source) video = source.id;
       } else if (sources.length > 1) {
-        var select = $('<select>');
-        for (i in sources) {
+        select = $('<select>');
+        for (var i in sources) {
           source = sources[i];
           select.append($('<option>').val(source.id).html(source.label || 'camera ' + (i + 1)));
         }

@@ -16,7 +16,7 @@ var SayCheese = (function() {
 
   var SayCheese;
 
-  navigator.getUserMedia = (navigator.getUserMedia ||
+  var legacyGetUserMedia = (navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
                             navigator.mozGetUserMedia ||
                             navigator.msGetUserMedia ||
@@ -89,6 +89,8 @@ var SayCheese = (function() {
         streaming = false;
 
     this.video = document.createElement('video');
+    this.video.autoplay = true;
+    this.video.playsInline = true;
 
     this.video.addEventListener('canplay', function() {
       if (!streaming) {
@@ -137,7 +139,7 @@ var SayCheese = (function() {
   SayCheese.prototype.start = function start() {
 
     // fail fast and softly if browser not supported
-    if (navigator.getUserMedia === false) {
+    if ((!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) && legacyGetUserMedia === false) {
       this.trigger('error', 'NOT_SUPPORTED');
       return false;
     }
@@ -146,7 +148,9 @@ var SayCheese = (function() {
       this.stream = stream;
       this.createVideo();
 
-      if (navigator.mozGetUserMedia) {
+      if ('srcObject' in this.video) {
+        this.video.srcObject = stream;
+      } else if (navigator.mozGetUserMedia) {
         this.video.mozSrcObject = stream;
       } else {
         this.video.src = this.getStreamUrl();
@@ -169,15 +173,35 @@ var SayCheese = (function() {
       this.trigger('error', error);
     }.bind(this);
 
-    return navigator.getUserMedia({ video: this.options.video, audio: this.options.audio }, success, error);
+    var constraints = { video: this.options.video, audio: this.options.audio };
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      return navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+    }
+
+    return legacyGetUserMedia.call(navigator, constraints, success, error);
   };
 
   SayCheese.prototype.stop = function stop() {
-    this.stream.stop();
+    if (!this.stream) {
+      return false;
+    }
 
-    if (window.URL && window.URL.revokeObjectURL) {
+    if (this.stream.getTracks) {
+      this.stream.getTracks().forEach(function(track) {
+        track.stop();
+      });
+    } else if (this.stream.stop) {
+      this.stream.stop();
+    }
+
+    if (this.video && 'srcObject' in this.video) {
+      this.video.srcObject = null;
+    } else if (this.video && window.URL && window.URL.revokeObjectURL && this.video.src) {
       window.URL.revokeObjectURL(this.video.src);
     }
+
+    this.stream = null;
 
     return this.trigger('stop');
   };

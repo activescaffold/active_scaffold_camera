@@ -6,6 +6,15 @@ Currently, this plugin is compatible with ActiveScaffold >= 3.4 gem.
 
 This plugin adds a camera viewer to take a snapshot from camera on ActiveScaffold forms. It uses [SayCheese.js](https://github.com/leemachin/say-cheese)
 
+### Browser compatibility
+
+The plugin uses the modern `navigator.mediaDevices` API when available, including
+[`enumerateDevices()`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices)
+and `deviceId` constraints. The legacy callback-based API, `MediaStreamTrack.getSources`,
+and `sourceId` constraints remain available as a fallback for older browsers.
+
+Camera access requires a secure context (HTTPS or localhost) and the user's permission.
+
 ## Installation
 
 You'll need at least ActiveScaffold 3.4 to use this
