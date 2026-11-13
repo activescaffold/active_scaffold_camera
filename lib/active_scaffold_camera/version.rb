@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveScaffoldCamera
   module Version
     MAJOR = 0

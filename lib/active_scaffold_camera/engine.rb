@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveScaffoldCamera
   class Engine < ::Rails::Engine
     initializer 'active_scaffold_camera.action_view' do
