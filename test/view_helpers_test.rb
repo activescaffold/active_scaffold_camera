@@ -8,14 +8,11 @@ class ViewHelpersTest < Minitest::Test
   Record = Struct.new(:photo)
 
   class Helper
+    include ActionView::Helpers::TagHelper
     include ActiveScaffoldCamera::ViewHelpers
 
     def as_(key)
       "translated #{key}"
-    end
-
-    def tag(name, attributes)
-      [name, attributes]
     end
   end
 
@@ -50,7 +47,7 @@ class ViewHelpersTest < Minitest::Test
 
   def test_snapshot_column_renders_only_when_a_value_exists
     assert_nil @helper.active_scaffold_column_snapshot(Record.new(nil), @column)
-    assert_equal [:img, {src: 'data:image/png;base64,image'}],
+    assert_equal '<img src="data:image/png;base64,image">',
                  @helper.active_scaffold_column_snapshot(Record.new('data:image/png;base64,image'), @column)
   end
 end
