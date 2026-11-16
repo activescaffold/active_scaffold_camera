@@ -7,7 +7,7 @@ end
 
 require 'minitest/autorun'
 require 'rails'
-require 'action_view/helpers/tag_helper'
+require 'action_view'
 
 # Minimal ActiveScaffold interface needed while loading the plugin.
 module ActiveScaffold
