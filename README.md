@@ -1,5 +1,12 @@
 # Camera for ActiveScaffold
 
+[![Build status](https://github.com/activescaffold/active_scaffold_camera/actions/workflows/ci.yml/badge.svg)](https://github.com/activescaffold/active_scaffold_camera/actions/workflows/ci.yml)
+[![Maintainability](https://qlty.sh/gh/activescaffold/projects/active_scaffold_camera/maintainability.svg)](https://qlty.sh/gh/activescaffold/projects/active_scaffold_camera)
+[![Code Coverage](https://qlty.sh/gh/activescaffold/projects/active_scaffold_camera/coverage.svg)](https://qlty.sh/gh/activescaffold/projects/active_scaffold_camera)
+[![Gem Version](https://badge.fury.io/rb/active_scaffold_camera.svg)](https://badge.fury.io/rb/active_scaffold_camera)
+[![Inline docs](https://inch-ci.org/github/activescaffold/active_scaffold_camera.svg?branch=master)](https://inch-ci.org/github/activescaffold/active_scaffold_camera)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Currently, this plugin is compatible with ActiveScaffold >= 3.4 gem.
 
 ## Overview
