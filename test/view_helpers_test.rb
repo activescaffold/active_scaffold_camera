@@ -55,7 +55,6 @@ class ViewHelpersTest < Minitest::Test
                  @helper.active_scaffold_column_snapshot(Record.new('data:image/png;base64,image'), @column)
   end
 
-
   def test_snapshot_input_renders_container_data_and_hidden_field
     html = @helper.active_scaffold_input_snapshot(
       @column,
@@ -72,7 +71,6 @@ class ViewHelpersTest < Minitest::Test
   def test_root_points_to_the_gem_directory
     assert_equal File.expand_path('..', __dir__), File.expand_path(ActiveScaffoldCamera.root)
   end
-
 
   def test_engine_initializer_installs_view_helpers_on_action_view
     initializer = ActiveScaffoldCamera::Engine.initializers.find do |item|
