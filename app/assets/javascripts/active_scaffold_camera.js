@@ -1,6 +1,3 @@
-//= require say-cheese
-//= require_self
-
 ActiveScaffold.snapshot = function(selector_or_elements, parent) {
   function modernMediaApi() {
     return navigator.mediaDevices && navigator.mediaDevices.getUserMedia;

@@ -10,4 +10,4 @@ module ActiveScaffoldCamera
 end
 
 ActiveScaffold.stylesheets << 'active_scaffold_camera'
-ActiveScaffold.javascripts << 'active_scaffold_camera'
+ActiveScaffold.javascripts.push('say-cheese', 'active_scaffold_camera')
